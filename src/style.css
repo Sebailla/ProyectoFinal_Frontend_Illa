@@ -1,0 +1,84 @@
+/*? - Login and Register Page - */
+
+.imgLogoLogin {
+    width: 150px;
+    margin-top: 0;
+    margin-bottom: 5rem;
+}
+
+.imgLogoRegister {
+    width: 100px;
+    margin-top: 0;
+    margin-bottom: 5rem;
+}
+
+.loginShadow {
+    box-Shadow: 15px 15px 20px 0px rgba(137, 100, 74, 0.6)
+}
+
+.link {
+    text-decoration: none;
+    color: rgba(4, 143, 212, 0.6);
+}
+
+/*? - Navbar - */
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: azure;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+    padding: 5px;
+}
+
+.navLink {
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto';
+    margin-right: 15px;
+}
+
+.navLink:hover {
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(4, 143, 212, 0.6);
+    font-weight: 500;
+}
+
+.navLinkChip {
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto';
+    margin-right: 15px;
+}
+
+.navCart {
+    text-decoration: none;
+    color: black;
+    margin-right: 15px;
+}
+
+.navCart:hover {
+    color: rgba(4, 143, 212, 0.6);
+}
+
+.avatar {
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto';
+    margin: 0 15px 0 30px;
+}
+
+/*? - Card Products - */
+
+.price{
+    text-align: right;
+    color: rgba(2, 103, 165, 0.6);
+}
+
