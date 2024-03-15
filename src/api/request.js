@@ -49,12 +49,19 @@ export const tokenValidity = async () => {
 
 export const getProducts = async () => {
     try {
-        const {data} = await ecommerceApi.get('/products')
-        const {result} = data
-        const {payload} = result
-        console.log(payload)
+
+        const { data } = await ecommerceApi.get('/products')
+        const { result } = data
+        const { payload: products, hasNextPage, hasPrevPage, limit, nextPage, page, pagingCounter, prevPage, totalDocs, totalPages } = result
+        console.log(result)
+
+        return { ok: true, products, pagination: { hasNextPage, hasPrevPage, limit, nextPage, page, pagingCounter, prevPage, totalDocs, totalPages } }
+
     } catch (error) {
+
         console.log(error)
         return { ok: false }
     }
 }
+
+
