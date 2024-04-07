@@ -35,8 +35,11 @@ export const Navbar = () => {
                             {
                                 isAdmin &&
                                 <>
-                                    <NavLink className="navLink" >
-                                        Agregar Producto
+                                    <NavLink 
+                                    className="navLink" 
+                                    to={'/admin'}
+                                    >
+                                        Administrador
                                     </NavLink>
                                 </>
                             }

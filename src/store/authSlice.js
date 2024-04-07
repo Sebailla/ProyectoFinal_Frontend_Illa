@@ -34,6 +34,7 @@ export const authSlice = createSlice({
             state.age = null
             state.role = null
             state.cart_id = null
+            state.isAdmin = false
         },
         onCheckLogin: (state) => {
             state.status = 'checking'

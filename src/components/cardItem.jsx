@@ -5,39 +5,73 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import { useNavigate } from 'react-router-dom';
+import { useProductStore } from '../hooks/useProductStore';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import { useAuthStore } from '../hooks/useAuthStore';
 
-export const CardItem = ({_id, title, description, price, stock, thumbnail, category }) => {
+
+export const CardItem = (product) => {
+
+    const { _id, title, description, price, stock, thumbnail, category, code } = product
+
+    const { startViewProduct } = useProductStore()
+    const navigate = useNavigate()
+
+    const onClickCard = () => {
+        navigate(`/product/${_id}`)
+        startViewProduct({ _id, title, description, price, stock, thumbnail, category, code })
+    }
+
+    const { isAdmin } = useAuthStore()
 
     return (
         <Card sx={{ maxWidth: 345 }} className='cardProduct'>
             <CardHeader
                 title={title}
                 subheader={category}
+                onClick={onClickCard}
             />
             <CardMedia
                 component="img"
                 height="194"
                 image={thumbnail}
                 alt="logo"
+                onClick={onClickCard}
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
-                <p className='price'><span>$</span> {price}</p>
+                <p className='price' onClick={onClickCard}><span>$</span> {price}</p>
             </CardContent>
             <CardActions>
-                <IconButton>
-                    <FavoriteIcon />
-                </IconButton>
-                <Typography variant="body2" color="text.secondary">
-                    Stock: <span>{stock}</span>
-                </Typography>
-                <IconButton className='cardCart'>
-                    <ShoppingCartOutlinedIcon />
-                </IconButton>
+                <div className='cardActionLeft'>
+                    <Typography variant="body2" color="text.secondary">
+                        Stock: <span>{stock}</span>
+                    </Typography>
+                </div>
+
+                <div className='cardActionRight'>
+                    {
+                        isAdmin &&
+                        <>
+                            <IconButton className='cardCart'>
+                                <EditNoteIcon />
+                            </IconButton>
+                            <IconButton className='cardCart'>
+                                <DeleteForeverIcon />
+                            </IconButton>
+                        </>
+                    }
+                    <IconButton className='cardCart'>
+                        <ShoppingCartOutlinedIcon />
+                    </IconButton>
+                </div>
+
+
             </CardActions>
         </Card>
     )

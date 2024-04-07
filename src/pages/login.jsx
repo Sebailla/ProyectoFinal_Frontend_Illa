@@ -123,7 +123,7 @@ const Login = () => {
                                 to='/login/register'
                                 className="link"
                             >
-                                <span>  Regístrate</span></Link>
+                                ...   Registrate</Link>
                         </Typography>
 
                     </Grid>
@@ -138,10 +138,10 @@ const Login = () => {
                         <Typography variant="subtitle2">
                             ¿Olvidaste tu passwor?
                             <Link
-                                to='/login/passwordRecovery'
+                                to='/login/email'
                                 className="link"
                             >
-                                <span>  New Password</span>
+                                ..  Reset Password
                             </Link>
 
                         </Typography>

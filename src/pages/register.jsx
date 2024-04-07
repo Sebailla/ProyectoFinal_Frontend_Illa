@@ -174,7 +174,7 @@ const Register = () => {
                                 to='/login/login'
                                 className="link"
                             >
-                                <span> Login</span>
+                                ...   Login
                             </Link>
                         </Typography>
 

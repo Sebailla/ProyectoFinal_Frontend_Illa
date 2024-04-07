@@ -7,15 +7,21 @@ import { useEffect } from 'react'
 import LoadingComponent from '../components/loading'
 import Cart from '../pages/cart'
 import { OwnShops } from '../pages/ownShops'
+import { Product } from '../pages/product'
+import { AdminProduct } from '../pages/adminProduct'
+import { AddProduct } from '../pages/addProduct'
+import {ResetPasswordEmail} from '../pages/resetPasswordEmail'
+import {ResetPassword} from '../pages/resetPassword'
+import { EditProduct } from '../pages/editProduct'
 
 
 const AppRouter = () => {
 
-    const { status, startChekingLogin } = useAuthStore()
-    
+    const { status, startChekingLogin, isAdmin } = useAuthStore()
+
     useEffect(() => {
         startChekingLogin()
-    },[])
+    }, [])
 
     if (status === 'checking') return <LoadingComponent />
 
@@ -26,21 +32,30 @@ const AppRouter = () => {
                     ?
                     (
                         <>
-                            <Route path='/' element={<Inicio />} />
                             <Route path='/login/login' element={<Login />} />
                             <Route path='/login/register' element={<Register />} />
+                            <Route path='/login/email' element= {<ResetPasswordEmail/>} />
+                            <Route path='/login/reset-password' element={<ResetPassword />} />
                         </>
                     )
                     :
                     (
                         <>
-                            <Route path='/' element={<Inicio />} />
                             <Route path='/carts' element={<Cart />} />
                             <Route path='/ownShops' element={<OwnShops />} />
+                            {
+                                isAdmin &&
+                                <>
+                                    <Route path='/admin' element={<AdminProduct />} />
+                                    <Route path='/admin/addProduct' element={<AddProduct />} />
+                                    <Route path="/admin/edit/:id" element={<EditProduct/>} />
+                                </>
+                            }
                         </>
                     )
             }
-
+            <Route path='/' element={<Inicio />} />
+            <Route path='/product/:id' element={<Product />} />
             <Route path='/*' element={<Navigate to='/' />} />
         </Routes>
     )

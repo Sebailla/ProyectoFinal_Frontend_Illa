@@ -97,6 +97,27 @@ span {
     padding: 15px;
 }
 
-.cardProduct{
+.cardProduct {
     border: 1px solid rgba(169, 169, 169, 0.4);
 }
+
+.linkProduct {
+    text-decoration: none;
+}
+
+.cardActionLeft {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.cardActionRight {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/*? - Product page - */

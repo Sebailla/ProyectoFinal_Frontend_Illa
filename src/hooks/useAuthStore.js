@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
-import { loginUser, registerUser, tokenValidity } from "../api/request"
+import { loginUser, registerUser, tokenValidity, resetPass, sendEmailResetPass } from "../api/request"
 import { onLogin, onLogout } from "../store/authSlice"
 import Swal from "sweetalert2"
+import { useCartStore } from "./useCartStore"
+import { useTicketStore } from "./useTicketStore"
 
 export const useAuthStore = () => {
 
@@ -17,10 +19,14 @@ export const useAuthStore = () => {
         isAdmin,
     } = useSelector(state => state.auth)
 
+    const { startGetCartById } = useCartStore()
+    const { startGetTickets } = useTicketStore()
+
     const startLogin = async (email, password) => {
         const result = await loginUser(email, password)
         if (result.ok) {
             const { _id, cart_id, firstName, lastName, role } = result
+            startGetCartById(cart_id)
             return dispatch(onLogin({ _id, cart_id, firstName, lastName, role }))
         }
         return Swal.fire({
@@ -48,12 +54,6 @@ export const useAuthStore = () => {
     const startLogout = () => {
         dispatch(onLogout())
         localStorage.clear()
-        /* return Swal.fire({
-            position: "top-end",
-            html: "User Logout sussess",
-            icon: 'error',
-            confirmButtonText: 'Ok'
-        }) */
     }
 
     const startChekingLogin = async () => {
@@ -65,6 +65,43 @@ export const useAuthStore = () => {
         }else{
             startLogout()
         }
+    }
+
+    const startSendEmailResetPass = async (email) => {
+        const resp = await sendEmailResetPass(email);
+        if (resp.ok) {
+            return Swal.fire({
+                title:'Sending email',
+                html: 'Se envio un email a tu casilla de correo para continuar el reset de tu contraseña',
+                icon: 'success',
+            })
+        }
+
+        return Swal.fire({
+            title: 'Error',
+            html: resp.msg,
+            icon: 'error',
+        })
+    }
+
+    const startResetPass = async (password, token) => {
+        const resp = await resetPass(password, token);
+        if (resp.ok) {
+            Swal.fire({
+                title: 'Reset Password',
+                html: 'Tu contraseña fue cambiada correctamente',
+                icon: 'success',
+            })
+            return true
+        }
+
+        Swal.fire({
+            title: 'Error',
+            html: resp.msg,
+            icon: 'error',
+        })
+
+        return false
     }
 
     return {
@@ -80,7 +117,9 @@ export const useAuthStore = () => {
 
         startLogin,
         startRegister,
+        startChekingLogin,
         startLogout,
-        startChekingLogin
+        startSendEmailResetPass,
+        startResetPass,
     }
 }
