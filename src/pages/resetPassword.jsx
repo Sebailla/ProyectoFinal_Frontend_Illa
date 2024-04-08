@@ -16,7 +16,7 @@ export const ResetPassword = () => {
     };
 
     const validationSchema = Yup.object({
-        password: Yup.string().required('La contraseña es obligatoria').min(6, 'La contraseña debe tener al menos 6 caracteres'),
+        password: Yup.string().required('La contraseña es obligatoria').min(8, 'La contraseña debe tener al menos 8 caracteres'),
     });
 
     const { values, handleChange, errors, handleSubmit } = useFormik({
@@ -24,7 +24,7 @@ export const ResetPassword = () => {
         validationSchema,
         onSubmit: async (values) => {
             const result = await startResetPass(values.password, token);
-            result && navigate('/auth/login')
+            result && navigate('/login/login')
         }
     });
 
@@ -38,7 +38,7 @@ export const ResetPassword = () => {
             direction='column'
             alignItems='center'
             justifyContent='center'
-            sx={{ minHeight: '100vh', backgroundColor: '#262254' }}
+            sx={{ minHeight: '100vh', backgroundColor: '#E9E6EA' }}
         >
 
             <Grid item sx={{ width: 450, backgroundColor: 'white', borderRadius: 2, padding: 3 }}>

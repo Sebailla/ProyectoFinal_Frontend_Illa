@@ -72,7 +72,7 @@ export const useAuthStore = () => {
         if (resp.ok) {
             return Swal.fire({
                 title:'Sending email',
-                html: 'Se envio un email a tu casilla de correo para continuar el reset de tu contraseña',
+                html: 'Revisa tu email para continuar el proceso',
                 icon: 'success',
             })
         }

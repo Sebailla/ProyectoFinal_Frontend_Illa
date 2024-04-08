@@ -10,10 +10,10 @@ import { OwnShops } from '../pages/ownShops'
 import { Product } from '../pages/product'
 import { AdminProduct } from '../pages/adminProduct'
 import { AddProduct } from '../pages/addProduct'
-import {ResetPasswordEmail} from '../pages/resetPasswordEmail'
-import {ResetPassword} from '../pages/resetPassword'
 import { EditProduct } from '../pages/editProduct'
 import { ChatComponent } from '../components/chat'
+import { ResetPasswordEmail } from '../pages/resetPasswordEmail'
+import { ResetPassword } from '../pages/resetPassword'
 
 
 const AppRouter = () => {
@@ -36,7 +36,7 @@ const AppRouter = () => {
                             <Route path='/login/login' element={<Login />} />
                             <Route path='/login/register' element={<Register />} />
                             <Route path='/login/email' element= {<ResetPasswordEmail/>} />
-                            <Route path='/login/newPassword' element={<ResetPassword />} />
+                            <Route path='/login/newPassword' element={<ResetPassword/>} />
                         </>
                     )
                     :

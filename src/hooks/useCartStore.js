@@ -25,9 +25,11 @@ export const useCartStore = () => {
     }
 
     const startAddProductInCart = async (idProduct) => {
-        const resp = await addProductInCart(cart._id, idProduct)
-        if (resp.ok) {
-            dispatch(onCart(resp.cart))
+
+        const result = await addProductInCart(cart.cart_id, idProduct)
+        console.log(result)
+        if (result.ok) {
+            dispatch(onCart(result.cart))
             return;
         }
 

@@ -59,8 +59,9 @@ export const sendEmailResetPass = async (email) => {
 }
 
 export const resetPass = async (password, token) => {
+    
     try {
-        const { data } = await ecommerceApi.post('/login/passwordReset', { password, token });
+        const { data } = await ecommerceApi.post('/login/newPassword', { password, token });
         return { ok: true }
     } catch (error) {
         console.log(error);
@@ -157,12 +158,14 @@ export const getCartById = async (cid) => {
 }
 
 export const addProductInCart = async (cid, pid) => {
+    console.log(cid, pid)
     try {
+        console.log({data})
         const { data } = await ecommerceApi.post(`/carts/${cid}/products/${pid}`);
-        return { ok: true, cart: data.carrito };
+        return { ok: true, };
     } catch (error) {
         console.log({ error });
-        return { ok: false, msg: error.response.data.msg };
+        return { ok: false, msg: error.msg };
     }
 }
 

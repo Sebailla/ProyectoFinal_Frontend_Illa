@@ -1,10 +1,13 @@
 import { Navbar } from "../components/navbar"
 import { useProductStore } from "../hooks/useProductStore"
-import { Button, Container, Grid, Typography } from "@mui/material"
+import { Button, IconButton, Typography } from "@mui/material"
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useCartStore } from '../hooks/useCartStore'
-import { AddCircleOutline, DeleteOutline, RemoveCircleOutline } from '@mui/icons-material';
+import AddRoundedIcon from '@mui/icons-material/AddRounded'
+import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 
 export const Product = () => {
 
@@ -50,7 +53,7 @@ export const Product = () => {
     return (
         <>
             <Navbar />
-            {/* <div>
+            <div>
                 <div>
                     <Link to={'/'}>
                         <Button>Volver</Button>
@@ -68,20 +71,23 @@ export const Product = () => {
                     <Typography variant="subtitle2">Stock: {product?.stock}</Typography>
                 </div>
                 <div>
-                    <Typography>Cantidad: </Typography>
-                    <IconButton>
+                    <Typography>Cantidad: {quantity} </Typography>
+                    <IconButton onClick={handleAumentarQuantity}>
                         <AddRoundedIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={handleDisminuirQuantity}>
                         <RemoveRoundedIcon />
                     </IconButton>
                     <IconButton color="primary">
-                        <AddShoppingCartIcon />
+                        <ShoppingCartRoundedIcon />
+                    </IconButton>
+                    <IconButton color="secundary" onClick={handleReset}>
+                        <DeleteRoundedIcon />
                     </IconButton>
                 </div>
-            </div> */}
+            </div>
 
-            <Container maxWidth='md' style={{ marginTop: 30 }}>
+            {/* <Container maxWidth='md' style={{ marginTop: 30 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <img src={product?.thumbnail} alt={product?.title} style={{ maxWidth: '70%', borderRadius: 8, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }} />
@@ -115,11 +121,11 @@ export const Product = () => {
                                             <DeleteOutline />
                                         </Button>
                                     </Grid>
-                                    {/* <Grid item>
+                                    <Grid item>
                                         <Button onClick={handleAddToCart}>
                                             <ShoppingCart />
                                         </Button>
-                                    </Grid> */}
+                                    </Grid>
                                     <Grid>
                                         <Link to={'/'}>
                                             <Button>Volver</Button>
@@ -130,7 +136,7 @@ export const Product = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Container>
+            </Container> */}
         </>
     )
 }
