@@ -147,8 +147,9 @@ export const updateProduct = async (pid, values) => {
 export const getCartById = async (cid) => {
     try {
         const { data } = await ecommerceApi.get(`/carts/${cid}`);
-        const { carrito } = data;
-        return { ok: true, cart: carrito };
+        console.log(data)
+        const { result } = data;
+        return { ok: true, cart: result };
     } catch (error) {
         console.log(error);
         return { ok: false };
@@ -203,5 +204,17 @@ export const getTickets = async () => {
     } catch (error) {
         console.log(error);
         return { ok: false };
+    }
+}
+
+// Mercado Pago
+export const referenceId = async (idCart) => {
+    try {
+        const { data } = await ecommerceApi.post(`/carts/createPreference/${idCart}`);
+        console.log({ data });
+        return { ok: true, idPreference: data.idPreference };
+    } catch (error) {
+        console.log({ error });
+        return { ok: false, msg: error.response.data.msg };
     }
 }

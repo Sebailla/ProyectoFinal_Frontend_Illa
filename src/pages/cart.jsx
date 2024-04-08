@@ -3,13 +3,43 @@ import { CardItemCart } from "../components/cardItemCart"
 import { Navbar } from "../components/navbar"
 import { useCartStore } from "../hooks/useCartStore"
 import { Button, Typography } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { referenceId } from "../api/request"
+import { getVariablesEnv } from "../helpers/getVariablesEnv"
+import queryString from 'query-string';
+
+const { MP_PUBLIC_KEY } = getVariablesEnv()
+initMercadoPago(MP_PUBLIC_KEY, { locale: 'es-AR' })
 
 const Cart = () => {
 
     const { cart, startConfirmCompra } = useCartStore();
     const [confirmCompra, setConfirmCompra] = useState(false)
+    //estado mercadipago
+    const [preferenceId, setPreferenceId] = useState(null)
 
+    const { status } = queryString.parse(location.search)
+    const navigate = useNavigate()
+
+    const confirmarCompra = async () => {
+        console.log('confirmar compra')
+        setConfirmCompra(true)
+        await startConfirmCompra()
+        setConfirmCompra(false)
+        navigate('/ownShops')
+    }
+
+    //idReference de mercadipago
+    const idReference = async () => {
+        try {
+            const resultado = await referenceId(cart._id);
+            if (resultado.ok)
+                setPreferenceId(resultado.idPreference);
+        } catch (error) {
+            console.log({ error });
+        }
+    }
 
     if (!cart) {
         return (
@@ -23,13 +53,6 @@ const Cart = () => {
     const total = cart?.products?.reduce((accumulator, product) => {
         return accumulator + (product.quantity * product.id.price)
     }, 0)
-
-    const confirmarCompra = async () => {
-        console.log('confirmar compra')
-        setConfirmCompra(true)
-        await startConfirmCompra()
-        setConfirmCompra(false)
-    }
 
     if (confirmCompra) {
         return (
@@ -60,6 +83,14 @@ const Cart = () => {
                     </div>
                     <div className="d-flex justify-content-center mt-3">
                         <button onClick={confirmarCompra} className="btn btn-primary">Confirmar compra</button>
+                        {
+                            !preferenceId && <button onClick={idReference} className="btn btn-primary">Confirmar compra</button>
+                        }
+                    </div>
+                    <div className="d-flex justify-content-center mt-3">
+                        {
+                            preferenceId && <Wallet initialization={{ preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />
+                        }
                     </div>
                 </>
             }
@@ -79,6 +110,9 @@ const Cart = () => {
                         </Link>
                     </div>
                 </>
+            }
+            {
+                (cart && status == 'approved') && confirmarCompra()
             }
         </>
     )

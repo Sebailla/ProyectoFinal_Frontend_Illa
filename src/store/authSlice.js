@@ -21,7 +21,7 @@ export const authSlice = createSlice({
             state.lastName = payload.lastName
             state.email = payload.email
             state.role = payload.role
-            state.cart_id = payload.cartId
+            state.cart_id = payload.cart_id
             state.age = payload.age
             state.isAdmin = payload.role === 'admin' ? true : false
         },
