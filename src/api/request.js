@@ -160,9 +160,8 @@ export const getCartById = async (cid) => {
 export const addProductInCart = async (cid, pid) => {
     console.log(cid, pid)
     try {
-        console.log({data})
         const { data } = await ecommerceApi.post(`/carts/${cid}/products/${pid}`);
-        return { ok: true, };
+        return { ok: true, cart: data.result};
     } catch (error) {
         console.log({ error });
         return { ok: false, msg: error.msg };

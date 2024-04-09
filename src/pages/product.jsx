@@ -13,7 +13,7 @@ export const Product = () => {
 
     const { '*': productId } = useParams();
     const { product, startGetProductById } = useProductStore();
-    const { startAddProductInCart, startRemoveProductInCart } = useCartStore();
+    const { cart, startAddProductInCart, startRemoveProductInCart } = useCartStore();
     const [quantity, setQuantity] = useState(0);
 
     useEffect(() => {
@@ -32,23 +32,23 @@ export const Product = () => {
     const handleAumentarQuantity = () => {
         if (quantity < product.stock) {
             setQuantity(prevQuantity => prevQuantity + 1)
-            startAddProductInCart(product._id)
+            //startAddProductInCart(product._id)
         }
     };
 
     const handleDisminuirQuantity = () => {
         if (quantity > 0) {
             setQuantity(prevQuantity => prevQuantity - 1)
-            startRemoveProductInCart(product._id)
+            //startRemoveProductInCart(product._id)
         }
     };
 
     const handleReset = () => setQuantity(0)
 
-    /* const handleAddToCart = () => {
-        startAddProductInCart(c product._id, quantity)
+    const handleAddToCart = () => {
+        startAddProductInCart( product._id)
         setQuantity(0)
-    } */
+    }
 
     return (
         <>
@@ -78,7 +78,7 @@ export const Product = () => {
                     <IconButton onClick={handleDisminuirQuantity}>
                         <RemoveRoundedIcon />
                     </IconButton>
-                    <IconButton color="primary">
+                    <IconButton color="primary" onClick={handleAddToCart}>
                         <ShoppingCartRoundedIcon />
                     </IconButton>
                     <IconButton color="secundary" onClick={handleReset}>

@@ -26,7 +26,7 @@ export const useCartStore = () => {
 
     const startAddProductInCart = async (idProduct) => {
 
-        const result = await addProductInCart(cart.cart_id, idProduct)
+        const result = await addProductInCart(cart._id, idProduct)
         console.log(result)
         if (result.ok) {
             dispatch(onCart(result.cart))

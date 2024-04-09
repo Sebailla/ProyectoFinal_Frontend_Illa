@@ -9,8 +9,8 @@ import { referenceId } from "../api/request"
 import { getVariablesEnv } from "../helpers/getVariablesEnv"
 import queryString from 'query-string';
 
-const { MP_PUBLIC_KEY } = getVariablesEnv()
-initMercadoPago(MP_PUBLIC_KEY, { locale: 'es-AR' })
+const { VITE_MP_PUBLIC_KEY } = getVariablesEnv()
+initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' })
 
 const Cart = () => {
 
@@ -23,7 +23,7 @@ const Cart = () => {
     const navigate = useNavigate()
 
     const confirmarCompra = async () => {
-        console.log('confirmar compra')
+        console.log('Purchase confirmed')
         setConfirmCompra(true)
         await startConfirmCompra()
         setConfirmCompra(false)
@@ -82,8 +82,7 @@ const Cart = () => {
                         <strong>Total: </strong> ${total.toFixed(2)}
                     </div>
                     <div className="d-flex justify-content-center mt-3">
-                        <button onClick={confirmarCompra} className="btn btn-primary">Confirmar compra</button>
-                        {
+                    {
                             !preferenceId && <button onClick={idReference} className="btn btn-primary">Confirmar compra</button>
                         }
                     </div>
