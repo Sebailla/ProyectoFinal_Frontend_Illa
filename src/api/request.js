@@ -102,25 +102,17 @@ export const getProductbyId = async (id) => {
 }
 
 export const addProduct = async (product) => {
+    console.log(product)
     try {
         
-        const form = new FormData()
-        form.append('title', product.title)
-        form.append('description', product.description)
-        form.append('price', product.price)
-        form.append('code', product.code)
-        form.append('category', product.category)
-        form.append('stock', product.stock)
-        form.append('thumbnail', product.thumbnail)
+        const {result} = await ecommerceApi.post('/products', product)
 
-        const {result} = await ecommerceApi.post('/products', {...form})
-
-        return { ok: true, product: result}
+        return { ok: true, result}
 
     } catch (error) {
 
         console.log(error)
-        return { ok: false, error }
+        return { ok: false, msg: error.response.data.msg }
     }
 }
 

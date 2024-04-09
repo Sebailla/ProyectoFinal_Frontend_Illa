@@ -54,15 +54,16 @@ export const useProductStore = () => {
     const startAddProduct = async (product)=>{
         const result = await addProduct(product)
         if (result.ok){
-            startViewProduct(product)
-            return
+            return startViewProduct(result.product)
         }
-        return Swal.fire({
+        Swal.fire({
+            title: 'Error al crear el producto',
             position: "top-end",
             html: result.msg,
             icon: 'error',
             confirmButtonText: 'Ok'
         })
+        return false
     }
 
     const startDeleteProduct = async (idProduct) => {

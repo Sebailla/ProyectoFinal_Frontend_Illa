@@ -33,9 +33,13 @@ const Cart = () => {
     //idReference de mercadipago
     const idReference = async () => {
         try {
-            const resultado = await referenceId(cart._id);
-            if (resultado.ok)
-                setPreferenceId(resultado.idPreference);
+            const resultado = await referenceId(cart._id)
+            if (resultado.ok){
+                setPreferenceId(resultado.idPreference)
+                if (cart && status == 'approved'){
+                    confirmarCompra()
+                } 
+            }
         } catch (error) {
             console.log({ error });
         }
@@ -109,9 +113,6 @@ const Cart = () => {
                         </Link>
                     </div>
                 </>
-            }
-            {
-                (cart && status == 'approved') && confirmarCompra()
             }
         </>
     )

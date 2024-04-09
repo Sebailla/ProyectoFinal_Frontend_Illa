@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { loginUser, registerUser, tokenValidity, resetPass, sendEmailResetPass } from "../api/request"
 import { onLogin, onLogout } from "../store/authSlice"
 import Swal from "sweetalert2"
-import { useCartStore } from "./useCartStore"
+import {useCartStore} from './useCartStore'
 import { useTicketStore } from "./useTicketStore"
 
 export const useAuthStore = () => {

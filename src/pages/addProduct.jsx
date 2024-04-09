@@ -57,7 +57,7 @@ export const AddProduct = () => {
             formData.append('price', price);
             formData.append('stock', stock);
             formData.append('category', category);
-            formData.append('file', thumbnail);
+            formData.append('thumbnail', thumbnail);
 
             const success = await startAddProduct(formData);
 
@@ -70,7 +70,7 @@ export const AddProduct = () => {
                     title: 'Product successfully added',
                     icon: 'success',
                 });
-                navigate('/admin-product');
+                navigate('/admin');
             } else {
                 setLoading(false);
                 setShowMessage(false);
