@@ -10,10 +10,10 @@ export const useCartStore = () => {
     const { cart } = useSelector(state => state.cart)
 
     const startGetCartById = async (cid) => {
-        const resp = await getCartById(cid)
-        console.log(resp)
-        if (resp.ok) {
-            dispatch(onCart(resp.cart))
+        const result = await getCartById(cid)
+        
+        if (result.ok) {
+            dispatch(onCart(result.cart))
             return
         }
 
@@ -27,7 +27,7 @@ export const useCartStore = () => {
     const startAddProductInCart = async (idProduct) => {
 
         const result = await addProductInCart(cart._id, idProduct)
-        console.log(result)
+        
         if (result.ok) {
             dispatch(onCart(result.cart))
             return;

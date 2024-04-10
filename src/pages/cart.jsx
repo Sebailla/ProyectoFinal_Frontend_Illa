@@ -29,7 +29,7 @@ const Cart = () => {
         setConfirmCompra(false)
         navigate('/ownShops')
     }
-
+    console.log({cart})
     //idReference de mercadipago
     const idReference = async () => {
         try {
@@ -45,11 +45,13 @@ const Cart = () => {
         }
     }
 
+    
+
     if (!cart) {
         return (
             <>
                 <Navbar />
-                <Typography variant="h4">Cargando carrito...</Typography>
+                <Typography variant="h4">No se encontro Carrito de compras</Typography>
             </>
         )
     }
@@ -57,6 +59,7 @@ const Cart = () => {
     const total = cart?.products?.reduce((accumulator, product) => {
         return accumulator + (product.quantity * product.id.price)
     }, 0)
+
 
     if (confirmCompra) {
         return (
