@@ -38,12 +38,6 @@ export const useProductStore = () => {
             startViewProduct(product)
             return;
         }
-
-        /* return Swal.fire({
-            title: 'Error al obtener los productos',
-            html: 'Por favor intenta mas tarte',
-            icon: 'error',
-        }) */
     }
 
     const startViewProduct = async (product)=>{

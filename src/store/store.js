@@ -11,5 +11,5 @@ export const store = configureStore({
         cart: cartSlice.reducer,
         ticket: ticketSlice.reducer
     },
-    //devTools:process.env.NODE_ENV !== 'production'
+    devTools: process.env.NODE_ENV !== 'production',
 })

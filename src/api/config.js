@@ -1,9 +1,10 @@
 import axios from 'axios'
+import { getVariablesEnv } from '../helpers/getVariablesEnv'
 
-const ecommerceApi = axios.create({
-    //baseURL: 'https://ecommerce-api-gf5s.onrender.com/api'
-    baseURL: 'http://localhost:8080/api'
-})
+const { VITE_URL_API } = getVariablesEnv();
+
+const ecommerceApi = axios.create({ baseURL: VITE_URL_API })
+
 
 ecommerceApi.interceptors.request.use(config => {
     config.headers = {

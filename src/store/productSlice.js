@@ -7,17 +7,6 @@ export const productSlice = createSlice({
         product: null,
         products: [],
         pagination: null,
-        /* pagination:{
-            hasNextPage: false, 
-            hasPrevPage: false,
-            limit: null, 
-            nextPage: null,
-            page: null, 
-            pagingCounter: null, 
-            prevPage: null, 
-            totalDocs: null, 
-            totalPages: null
-        } */
     },
     reducers: {
         onProduct: (state, { payload }) => {

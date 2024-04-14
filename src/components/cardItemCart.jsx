@@ -3,24 +3,25 @@ import { IconButton } from '@mui/material'
 import { useState } from 'react'
 import { useCartStore } from '../hooks/useCartStore'
 
+
 export const CardItemCart = (product) => {
     const { _id, title, price, stock, thumbnail } = product.id
-    console.log(_id, title, price, stock, thumbnail)
+    //console.log(_id, title, price, stock, thumbnail)
     const { quantity } = product
-    console.log({ quantity })
+    //console.log({ quantity })
     const [cantidad, setCantidad] = useState(quantity)
-    const { startAddProductInCart, startRemoveProductInCart, startDeleteProductInCart } = useCartStore()
+    const {cacrt, startAddProductInCart, startRemoveProductInCart, startDeleteProductInCart } = useCartStore()
 
     const handleAumentarQuantity = () => {
         if (cantidad < stock) {
-            setCantidad(prevQuantity => prevQuantity + 1);
+            setCantidad(prevQuantity => prevQuantity + 1)
             startAddProductInCart(_id)
         }
     }
 
     const handleDisminuirQuantity = () => {
         if (cantidad > 1) {
-            setCantidad(prevQuantity => prevQuantity - 1);
+            setCantidad(prevQuantity => prevQuantity - 1)
             startRemoveProductInCart(_id)
         }
     }

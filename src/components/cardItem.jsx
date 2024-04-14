@@ -54,7 +54,7 @@ export const CardItem = (product) => {
                     </Typography>
                 </div>
 
-                <div className='cardActionRight'>
+                {/* <div className='cardActionRight'>
                     {
                         isAdmin &&
                         <>
@@ -69,7 +69,7 @@ export const CardItem = (product) => {
                     <IconButton className='cardCart'>
                         <ShoppingCartOutlinedIcon />
                     </IconButton>
-                </div>
+                </div> */}
 
 
             </CardActions>

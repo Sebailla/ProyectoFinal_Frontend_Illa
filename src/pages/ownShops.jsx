@@ -50,7 +50,7 @@ export const OwnShops = () => {
                     {tickets.map((ticket) => (
                         <div key={ticket._id} style={{ border: '1px solid #ccc', padding: '20px', marginTop: '20px' }}>
                             <Typography variant="h5">Código: {ticket.code}</Typography>
-                            <Typography variant="body1">Fecha de compra: {new Date(ticket.purchase_datetime).toLocaleString()}</Typography>
+                            <Typography variant="body1">Fecha de compra: {ticket.purchase_datetime}</Typography>
                             <Typography variant="body1">Monto total: ${ticket.amount.toFixed(2)}</Typography>
                             <Typography variant="body1">Correo de compra: {ticket.purchase}</Typography>
                             <Typography variant="h6">Items:</Typography>

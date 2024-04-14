@@ -150,9 +150,9 @@ export const getCartById = async (cid) => {
 }
 
 export const addProductInCart = async (cid, pid) => {
-    console.log(cid, pid)
     try {
         const { data } = await ecommerceApi.post(`/carts/${cid}/products/${pid}`);
+        console.log(data)
         return { ok: true, cart: data.result};
     } catch (error) {
         console.log({ error });
@@ -161,9 +161,11 @@ export const addProductInCart = async (cid, pid) => {
 }
 
 export const updateProductInCart = async (cid, pid, quantity) => {
+    
     try {
         const { data } = await ecommerceApi.put(`/carts/${cid}/products/${pid}`, { quantity });
-        return { ok: true, cart: data.carrito };
+        console.log({ data });
+        return { ok: true, result: data.cart };
     } catch (error) {
         console.log({ error });
         return { ok: false, msg: error.response.data.msg };
@@ -173,7 +175,7 @@ export const updateProductInCart = async (cid, pid, quantity) => {
 export const deleteProductInCart = async (cid, pid) => {
     try {
         const { data } = await ecommerceApi.delete(`/carts/${cid}/products/${pid}`);
-        return { ok: true, cart: data.carrito };
+        return { ok: true, cart: data.result };
     } catch (error) {
         console.log({ error });
         return { ok: false, msg: error.response.data.msg };
@@ -182,7 +184,8 @@ export const deleteProductInCart = async (cid, pid) => {
 
 export const confirmPurchase = async (cid) => {
     try {
-        const { data } = await ecommerceApi.post(`/carts/${cid}/purchase`);
+        const {data} = await ecommerceApi.post(`/carts/${cid}/purchase`);
+        console.log({ data });
         return { ok: true };
     } catch (error) {
         console.log({ error });
@@ -202,9 +205,9 @@ export const getTickets = async () => {
 }
 
 // Mercado Pago
-export const referenceId = async (idCart) => {
+export const referenceId = async (cid) => {
     try {
-        const { data } = await ecommerceApi.post(`/carts/createPreference/${idCart}`);
+        const { data } = await ecommerceApi.post(`/carts/createPreference/${cid}`);
         console.log({ data });
         return { ok: true, idPreference: data.idPreference };
     } catch (error) {

@@ -7,51 +7,73 @@ import { Link, useNavigate } from "react-router-dom"
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { referenceId } from "../api/request"
 import { getVariablesEnv } from "../helpers/getVariablesEnv"
-import queryString from 'query-string';
+import queryString from "query-string"
+import Swal from "sweetalert2"
 
 const { VITE_MP_PUBLIC_KEY } = getVariablesEnv()
-initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' })
+
 
 const Cart = () => {
+    initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' })
 
-    const { cart, startConfirmCompra } = useCartStore();
+    const { cart, startConfirmPurchase } = useCartStore();
     const [confirmCompra, setConfirmCompra] = useState(false)
     //estado mercadipago
     const [preferenceId, setPreferenceId] = useState(null)
 
     const { status } = queryString.parse(location.search)
+    
+    console.log(status)
+
     const navigate = useNavigate()
 
     const confirmarCompra = async () => {
         console.log('Purchase confirmed')
         setConfirmCompra(true)
-        await startConfirmCompra()
-        setConfirmCompra(false)
-        navigate('/ownShops')
+        await startConfirmPurchase()
+        //setConfirmCompra(false)
+        navigate('/')
+        Swal.fire({
+            title: "Compra Realizada con Exito",
+            html: "Gracias por su compra",
+            icon: "success",
+        })
     }
-    console.log({cart})
+    console.log(cart)
     //idReference de mercadipago
     const idReference = async () => {
         try {
             const resultado = await referenceId(cart._id)
-            if (resultado.ok){
+            if (resultado.ok) {
                 setPreferenceId(resultado.idPreference)
-                if (cart && status == 'approved'){
+                if (cart && status == 'approved') {
                     confirmarCompra()
-                } 
+                }
             }
         } catch (error) {
             console.log({ error });
         }
     }
 
-    
+
 
     if (!cart) {
         return (
             <>
                 <Navbar />
-                <Typography variant="h4">No se encontro Carrito de compras</Typography>
+                <>
+                    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+                        <Typography variant="h4">Tu carrito está vacío</Typography>
+                        <Typography variant="body1" style={{ marginTop: '20px', marginBottom: '20px' }}>¡Agrega algunos productos para comenzar!</Typography>
+                        <Link to="/" style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" color="primary" style={{ marginTop: '20px' }}>
+                                <Typography variant="button" sx={{ color: 'white' }}>
+                                    Ir a comprar
+                                </Typography>
+                            </Button>
+                        </Link>
+                    </div>
+                </>
             </>
         )
     }
@@ -59,7 +81,6 @@ const Cart = () => {
     const total = cart?.products?.reduce((accumulator, product) => {
         return accumulator + (product.quantity * product.id.price)
     }, 0)
-
 
     if (confirmCompra) {
         return (
@@ -89,7 +110,7 @@ const Cart = () => {
                         <strong>Total: </strong> ${total.toFixed(2)}
                     </div>
                     <div className="d-flex justify-content-center mt-3">
-                    {
+                        {
                             !preferenceId && <button onClick={idReference} className="btn btn-primary">Confirmar compra</button>
                         }
                     </div>
@@ -116,6 +137,10 @@ const Cart = () => {
                         </Link>
                     </div>
                 </>
+            }
+
+            {
+                (status == "approved") && confirmarCompra()
             }
         </>
     )
